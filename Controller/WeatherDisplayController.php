@@ -19,11 +19,16 @@ class WeatherDisplayController {
 
     public function test(): string {
         $output = $this->view->displayAction("Welcome to the test action!");
-
-        $locationKey = $this->accuWeatherService->getLocationKeyFromPostcode('73134');
-
-        $output .= $locationKey;
         return $output;
+    }
+
+    public function postcodeSearch(string $postcode): string {
+        return $this->view->displayAction("Welcome to the postcode search action!");
+         // $locationKey = $this->accuWeatherService->getLocationKeyFromPostcode('73134');
+    }
+
+    public function weatherSearch(string $locationKey): string {
+        return $this->view->displayAction("Welcome to the weather search action!");
     }
 
     public function error(): string {
