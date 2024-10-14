@@ -13,6 +13,6 @@ $config = $router->getRoute($uri);
 
 $controller = new $config['controller']();
 $action = $config['action'];
-echo $controller->$action();
+echo $controller->$action(...$config['parameters']);
 
 ?>
