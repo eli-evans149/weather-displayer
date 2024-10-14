@@ -16,13 +16,13 @@ class Router {
                 return [
                     'controller' => 'WeatherDisplayController',
                     'action' => 'postcodeSearch',
-                    'parameters' => ['postcode' => $uri[1],],
+                    'parameters' => ['postcode' => $uri[2],],
                 ];
             case 'weather': // /weather/31790_PC
                 return [
                     'controller' => 'WeatherDisplayController',
                     'action' => 'weatherSearch',
-                    'parameters' => ['locationKey' => $uri[1],],
+                    'parameters' => ['locationKey' => $uri[2],],
                 ];
             case 'test':
                 return [

@@ -2,6 +2,7 @@
 
 require_once 'View/WeatherDisplayView.php';
 require_once 'Service/AccuWeatherService.php';
+require_once 'Model/AccuWeatherLocation.php';
 
 class WeatherDisplayController {
 
@@ -23,8 +24,9 @@ class WeatherDisplayController {
     }
 
     public function postcodeSearch(string $postcode): string {
-        return $this->view->displayAction("Welcome to the postcode search action!");
-         // $locationKey = $this->accuWeatherService->getLocationKeyFromPostcode('73134');
+        $locationData = $this->accuWeatherService->getLocationDataFromPostcode($postcode);
+        echo "Location data: " . print_r($locationData, true);
+        return $this->view->displayLocationsForSelection($locationData);
     }
 
     public function weatherSearch(string $locationKey): string {
