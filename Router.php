@@ -1,16 +1,6 @@
 <?php
 
 class Router {
-    private $routes = [
-        '/' => [
-            'controller' => 'WeatherDisplayController',
-            'action' => 'index',
-        ],
-        '/test' => [
-            'controller' => 'WeatherDisplayController',
-            'action' => 'test',
-        ],
-    ];
 
     public function getRoute(string $uri): array {
         switch ($uri) {
