@@ -8,4 +8,8 @@ class WeatherDisplayController {
     public function test(): string {
         return "Welcome to the test action!";
     }
+
+    public function error(): string {
+        return "Welcome to the error action!";
+    }
 }
