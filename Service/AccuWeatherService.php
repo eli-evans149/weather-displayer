@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Model/AccuWeatherLocation.php';
+require_once 'MOdel/AccuWeatherCurrentCondition.php';
 
 class AccuWeatherService {
     private string $apiKey;
@@ -17,9 +18,9 @@ class AccuWeatherService {
      * @return string The current weather for the given location.
      * @throws Throwable If there is an issue connecting to the AccuWeather API.
      */
-    public function getWeatherFromLocationKey(string $locationKey): string {
+    public function getWeatherFromLocationKey(string $locationKey): AccuWeatherCurrentCondition {
         $ch = curl_init();
-        $url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=' . $this->apiKey . '&q=' . $locationKey;
+        $url = 'http://dataservice.accuweather.com/currentconditions/v1/'. $locationKey . '?apikey=' . $this->apiKey;
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
@@ -28,10 +29,10 @@ class AccuWeatherService {
 
         try {
             $output = json_decode($output, true);
-            return $output[0]['WeatherText'];
+            return new AccuWeatherCurrentCondition($output[0]['WeatherText'], $output[0]['Temperature']);
         } catch (Throwable $e) {
             echo print_r($e, true);
-            return '';
+            return new AccuWeatherCurrentCondition('', []);
         }
     }
     
@@ -47,7 +48,6 @@ class AccuWeatherService {
     public function getLocationDataFromPostcode(string $postcode): array {
         $ch = curl_init();
         $url = 'http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=' . $this->apiKey . '&q=' . $postcode;
-        echo "API URL: " . $url;
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json'));
@@ -55,16 +55,14 @@ class AccuWeatherService {
         curl_close($ch);
 
         $results = [];
-        // try {
+        try {
             $output = json_decode($output, true);
-            echo "Output: " . print_r($output, true);
             foreach ($output as $location) {
-                echo "Location for array: " . print_r($location, true);
                 $results[] = new AccuWeatherLocation($location);
             }
-        // } catch (Throwable $e) {
-        //     echo print_r($e, true);
-        // }
+        } catch (Throwable $e) {
+            echo print_r($e, true);
+        }
 
         return $results;
     }

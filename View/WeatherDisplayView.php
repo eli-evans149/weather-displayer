@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Model/AccuWeatherLocation.php';
+require_once 'Model/AccuWeatherCurrentCondition.php';
+
 class WeatherDisplayView {
 
     private string $baseURL = "http://localhost:8000/";
@@ -22,6 +25,24 @@ class WeatherDisplayView {
                 $html .= 'See the weather for: ' . $locationName . ' (' . $locationKey . ')';
                 $html .= '</a></ul>';
             }
+        }
+
+        return $html;
+    }
+
+    public function displayConditionsForLocation(AccuWeatherCurrentCondition $currentCondition): string {
+        $html = '';
+        $html .= $this->getHeader();
+
+        if ($currentCondition->getWeather() === '' || $currentCondition->getTemperature() === []) {
+            $html .= "Conditions not found, please go back and try again.";
+        } else {
+            $html .= '<h2>Current Conditions</h2>';
+            $html .= '<p>The current condition are: '. $currentCondition->getWeather() . '</p>';
+            $html .= '<p>The current temperature is: ';
+            $html .= $currentCondition->getTemperature()['Metric']['Value'] . ' ' . $currentCondition->getTemperature()['Metric']['Unit'] . '°';
+            $html .= " or ";
+            $html .= $currentCondition->getTemperature()['Imperial']['Value'] . ' ' . $currentCondition->getTemperature()['Imperial']['Unit'] . '°';
         }
 
         return $html;

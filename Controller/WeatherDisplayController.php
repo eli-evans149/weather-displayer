@@ -25,12 +25,12 @@ class WeatherDisplayController {
 
     public function postcodeSearch(string $postcode): string {
         $locationData = $this->accuWeatherService->getLocationDataFromPostcode($postcode);
-        echo "Location data: " . print_r($locationData, true);
         return $this->view->displayLocationsForSelection($locationData);
     }
 
     public function weatherSearch(string $locationKey): string {
-        return $this->view->displayAction("Welcome to the weather search action!");
+        $weatherInfo = $this->accuWeatherService->getWeatherFromLocationKey($locationKey);
+        return $this->view->displayConditionsForLocation($weatherInfo);
     }
 
     public function error(): string {
