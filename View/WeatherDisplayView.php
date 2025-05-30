@@ -43,6 +43,10 @@ class WeatherDisplayView {
             $html .= $currentCondition->getTemperature()['Metric']['Value'] . ' ' . $currentCondition->getTemperature()['Metric']['Unit'] . '°';
             $html .= " or ";
             $html .= $currentCondition->getTemperature()['Imperial']['Value'] . ' ' . $currentCondition->getTemperature()['Imperial']['Unit'] . '°';
+            $icon = $currentCondition->getIconPath();
+            if (isset($icon)) {
+                $html .= "<img src='/WeatherIcons/$icon' alt='Icon representing current conditions.'>"; // TODO: Fix this route.
+            }
         }
 
         return $html;

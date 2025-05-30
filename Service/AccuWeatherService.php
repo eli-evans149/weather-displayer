@@ -29,7 +29,7 @@ class AccuWeatherService {
 
         try {
             $output = json_decode($output, true);
-            return new AccuWeatherCurrentCondition($output[0]['WeatherText'], $output[0]['Temperature']);
+            return new AccuWeatherCurrentCondition($output[0]['WeatherText'], $output[0]['Temperature'], $output[0]['WeatherIcon']);
         } catch (Throwable $e) {
             echo print_r($e, true);
             return new AccuWeatherCurrentCondition('', []);
@@ -66,4 +66,6 @@ class AccuWeatherService {
 
         return $results;
     }
+
+    
 }
