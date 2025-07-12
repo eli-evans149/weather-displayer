@@ -5,6 +5,8 @@ require_once 'Model/AccuWeatherCurrentCondition.php';
 
 class WeatherDisplayView {
 
+    public const WEATHER_ICON_FOLDER = '\View\WeatherIcons\weather-icons\\';
+
     private string $baseURL = "http://localhost:8000/";
     public function displayAction(string $action): string {
         return $this->getHeader() . $action;
@@ -43,9 +45,9 @@ class WeatherDisplayView {
             $html .= $currentCondition->getTemperature()['Metric']['Value'] . ' ' . $currentCondition->getTemperature()['Metric']['Unit'] . '°';
             $html .= " or ";
             $html .= $currentCondition->getTemperature()['Imperial']['Value'] . ' ' . $currentCondition->getTemperature()['Imperial']['Unit'] . '°';
-            $icon = $currentCondition->getIconPath();
-            if (isset($icon)) {
-                $html .= "<img src='/WeatherIcons/$icon' alt='Icon representing current conditions.'>"; // TODO: Fix this route.
+            $iconPath = $currentCondition->getIconPath();
+            if (isset($iconPath)) {
+                $html .= "<img src='$iconPath' alt='Icon representing current conditions.'>";
             }
         }
 
