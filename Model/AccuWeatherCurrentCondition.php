@@ -25,18 +25,21 @@ class AccuWeatherCurrentCondition {
         return $this->iconNumber;
     }
 
-    function getIconPath(): string { // TODO: FIX THIS FUNCTION.
+    function getIconPath(): string {
         $iconDirectory = WeatherDisplayView::WEATHER_ICON_FOLDER;
-        $directory = (dirname(__FILE__) .'\..' . $iconDirectory);
-        $files = scandir($directory);
+
+        $rootToSearch = dirname(__FILE__) . '\..';
+        $rootToServe = 'http://' . $_SERVER['HTTP_HOST'];
+        
+        $directoryToSearch = $rootToSearch . $iconDirectory;
+        $files = scandir($directoryToSearch);
         $iconNumber = $this->getIconNumber();
         $fileStart = str_pad($iconNumber ?? '', 2, '0', STR_PAD_LEFT);
         foreach ($files as $file) {
             $stringPos = strpos($file, $fileStart);
             $stringPosString = print_r($stringPos, true);
             if ($stringPos === 0) {
-                echo "File found: $file";
-                return '..' . $iconDirectory . $file; // TODO: FIX HERE.
+                return $rootToServe . $iconDirectory . $file;
             }
         }
         echo "File not found.";

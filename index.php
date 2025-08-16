@@ -3,11 +3,10 @@
 require_once 'Router.php';
 require_once 'Controller/WeatherDisplayController.php';
 
-echo "Hello World! You are coming from: ";
-
-echo "\n\n URL: " . $_SERVER['REQUEST_URI'] . "\n";
-
 $uri = $_SERVER['REQUEST_URI'];
+if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $uri)) {
+    return false;
+}
 $router = new Router();
 $config = $router->getRoute($uri);
 
