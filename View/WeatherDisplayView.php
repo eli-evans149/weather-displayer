@@ -12,6 +12,19 @@ class WeatherDisplayView {
         return $this->getHeader() . $action;
     }
 
+    public function displayLocationSearchBox(): string {
+        $html = $this->getHeader();
+
+        $html .= '<h2>Location Search</h2>';
+        $html .= '<form action="/postcode-search" method="GET">';
+        $html .= '<label for="postcode">Enter postal code to search for:</label><br>';
+        $html .= '<input type="text" id="postcode" name="postcode">';
+        $html .= '<input type="submit" value="Search">';
+        $html .= '</form>';
+
+        return $html;
+    }
+
     public function displayLocationsForSelection(array $locations): string {
         $html = '';
         $html .= $this->getHeader();

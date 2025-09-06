@@ -15,7 +15,7 @@ class WeatherDisplayController {
     }
 
     public function index(): string {
-        return $this->view->displayAction("Welcome to the index action!");
+        return $this->view->displayLocationSearchBox();
     }
 
     public function test(): string {

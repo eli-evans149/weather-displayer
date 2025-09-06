@@ -4,7 +4,9 @@ class Router {
 
     public function getRoute(string $uri): array {
         $uri = explode('/', $uri);
-        switch ($uri[1]) {
+        $uriEnding = explode('?', $uri[1])[0];
+
+        switch ($uriEnding) {
             case '':
             case 'index':
                 return [
@@ -13,10 +15,11 @@ class Router {
                     'parameters' => [],
                 ];
             case 'postcode-search': // /postcode-search/73134
+                    $postcode = $_GET['postcode'];
                 return [
                     'controller' => 'WeatherDisplayController',
                     'action' => 'postcodeSearch',
-                    'parameters' => ['postcode' => $uri[2],],
+                    'parameters' => [$postcode],
                 ];
             case 'weather': // /weather/31790_PC
                 return [
