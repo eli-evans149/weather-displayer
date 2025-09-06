@@ -4,7 +4,7 @@ require_once 'Router.php';
 require_once 'Controller/WeatherDisplayController.php';
 
 $uri = $_SERVER['REQUEST_URI'];
-if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $uri)) {
+if (preg_match('/\.(?:png|PNG|jpg|jpeg|gif)$/', $uri)) {
     return false;
 }
 $router = new Router();

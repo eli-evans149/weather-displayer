@@ -68,7 +68,7 @@ class WeatherDisplayView {
     }
 
     public function getHeader(): string {
-        return "<h1>Weather Display</h1>";
+        return "<!DOCTYPE html><h1>Weather Display</h1>";
     }
 }
 
